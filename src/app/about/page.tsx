@@ -4,6 +4,13 @@ import TableOfContents from '@/components/about/TableOfContents';
 import styles from '@/components/about/about.module.scss'
 import { person, about, social } from '@/app/resources/content';
 
+interface ContentImage {
+    src: string;
+    alt: string;
+    width?: number;
+    height?: number;
+}
+
 export async function generateMetadata() {
 	const title = about.title;
 	const description = about.description;
@@ -252,23 +259,26 @@ export default function About() {
                                                 </Text>
                                             ))}
                                         </Flex>
-                                        {experience.images.length > 0 && (
-                                            <Flex
-                                                fillWidth paddingTop="m" paddingLeft="40"
-                                                wrap>
-                                                {experience.images.map((image, index) => (
-                                                    <Flex
-                                                        key={index}
-                                                        border="neutral-medium"
-                                                        
-                                                        radius="m"
-                                                        minWidth={image.width} height={image.height}>
-                                                        <SmartImage
-                                                            enlarge
-                                                            radius="m"
-                                                            sizes={image.width.toString()}
-                                                            alt={image.alt}
-                                                            src={image.src}/>
+                                        {experience.images && experience.images.length > 0 && (
+    <Flex
+        fillWidth 
+        paddingTop="m" 
+        paddingLeft="40"
+        wrap>
+        {experience.images.map((image: ContentImage, index) => 
+            image && (
+                <Flex
+                    key={index}
+                    border="neutral-medium"
+                    radius="m"
+                    minWidth={image.width || 0} 
+                    height={image.height || 0}>
+                    <SmartImage
+                        enlarge
+                        radius="m"
+                        sizes={(image.width || 0).toString()}
+                        alt={image.alt}
+                        src={image.src}/>
                                                     </Flex>
                                                 ))}
                                             </Flex>
@@ -338,22 +348,25 @@ export default function About() {
                                             {skill.description}
                                         </Text>
                                         {skill.images && skill.images.length > 0 && (
-                                            <Flex
-                                                fillWidth paddingTop="m" gap="12"
-                                                wrap>
-                                                {skill.images.map((image, index) => (
-                                                    <Flex
-                                                        key={index}
-                                                        border="neutral-medium"
-                                                        
-                                                        radius="m"
-                                                        minWidth={image.width} height={image.height}>
-                                                        <SmartImage
-                                                            enlarge
-                                                            radius="m"
-                                                            sizes={image.width.toString()}
-                                                            alt={image.alt}
-                                                            src={image.src}/>
+    <Flex
+        fillWidth 
+        paddingTop="m" 
+        gap="12"
+        wrap>
+        {skill.images.map((image: ContentImage, index) => 
+            image && (
+                <Flex
+                    key={index}
+                    border="neutral-medium"
+                    radius="m"
+                    minWidth={image.width || 0} 
+                    height={image.height || 0}>
+                    <SmartImage
+                        enlarge
+                        radius="m"
+                        sizes={(image.width || 0).toString()}
+                        alt={image.alt}
+                        src={image.src}/>
                                                     </Flex>
                                                 ))}
                                             </Flex>
